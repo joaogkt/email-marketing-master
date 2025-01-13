@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, ManyToMany } from 'typeorm';
 import { Company } from 'src/company/company.entity';
+import { Contact } from 'src/contact/entities/contact.entity';
 
 @Entity('contact-lists')
 export class ContactList {
@@ -7,11 +8,16 @@ export class ContactList {
     id: number
 
     @Column({ length: 100})
-    name: string
+    nome: string
 
     @ManyToOne(() => Company, (company) => company.id)
     company: Company;
   
     @CreateDateColumn()
     data_cadastro: Date;
+
+
+    //Mexer nessa relação
+    @ManyToMany(() => Contact, (contact) => contact.contactLists)
+    contacts: Contact[];
 }

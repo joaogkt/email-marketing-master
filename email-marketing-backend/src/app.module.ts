@@ -18,6 +18,8 @@ import { CompanyModule } from './company/company.module';
 import { Company } from './company/company.entity';
 import { ContactListModule } from './contact-list/contact-list.module';
 import { ContactList } from './contact-list/entities/contact-list.entity';
+import { ContactModule } from './contact/contact.module';
+import { Contact } from './contact/entities/contact.entity';
 
 
 
@@ -36,13 +38,14 @@ import { ContactList } from './contact-list/entities/contact-list.entity';
       username: process.env.DB_USER || 'postgres',
       password: process.env.DB_PASS || '1234',
       database: process.env.DB_NAME || 'test',
-      entities: [User, Email, Campaigns, Company, ContactList],
+      entities: [User, Email, Campaigns, Company, ContactList, Contact],
       synchronize: true,
     }),
     EmailModule,
     AuthModule,
     UsersModule,
     CampaignsModule,
+    ContactModule,
      MailerModule.forRoot({
       transport: {
         host: process.env.EMAIL_HOST || 'smtp.gmail.com',
@@ -65,6 +68,7 @@ import { ContactList } from './contact-list/entities/contact-list.entity';
     }),
      CompanyModule,
      ContactListModule,
+     ContactModule,
   ],
   controllers: [AppController],
   providers: [AppService],

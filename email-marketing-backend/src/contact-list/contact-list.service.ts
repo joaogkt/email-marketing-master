@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateContactListDto } from './dto/create-contact-list.dto';
 import { UpdateContactListDto } from './dto/update-contact-list.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -15,24 +15,39 @@ export class ContactListService {
     private contactListRepository: Repository<ContactList>,
   ) {}
 
-  create(createContactListDto: CreateContactListDto) {
-    
-    return 'This action adds a new contactList';
+  async create(createContactListDto: CreateContactListDto): Promise<ContactList> {
+    const { nome, company_id } = createContactListDto;
+    const contactList = this.contactListRepository.create({ nome, company: { id: company_id } });
+    return this.contactListRepository.save(contactList)
   }
 
   findAll() {
-    return `This action returns all contactList`;
+    return this.contactListRepository.find({relations: ['company']});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} contactList`;
+  async findOne(id: number): Promise<ContactList> {
+    const contactList = await this.contactListRepository.findOne({
+      where: { id },
+      relations: ['company']
+    })
+    if (!contactList) {
+      throw new Error('Lista de contatos não encontrada');
+  }
+    return contactList;
   }
 
-  update(id: number, updateContactListDto: UpdateContactListDto) {
-    return `This action updates a #${id} contactList`;
+  async update(id: number, updateContactListDto: UpdateContactListDto) {
+    const contactList = await this.findOne(id)
+    const { nome, company_id } = updateContactListDto
+    contactList.nome = nome
+    return this.contactListRepository.save(contactList);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} contactList`;
+  async remove(id: number): Promise<void> {
+    const contactList = await this.findOne(id)
+    if (!contactList) {
+      throw new NotFoundException(`Campanha com id ${id} não encontrado`)
+    }
+    await this.contactListRepository.remove(contactList)
   }
 }

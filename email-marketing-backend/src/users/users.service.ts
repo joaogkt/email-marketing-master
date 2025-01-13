@@ -1,16 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
-import { privateDecrypt } from 'crypto';
-import { Repository, ViewOptions } from 'typeorm';
-import { threadId } from 'worker_threads';
-import { NotFoundError } from 'rxjs';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(User)
-        private usersRepository: Repository<User>
+        private usersRepository: Repository<User>,
     ) {}
 
     async findAll(): Promise<User[]> {

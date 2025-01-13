@@ -33,6 +33,7 @@ export class CampaignsService {
               throw new NotFoundException(`Campaign with id ${id} not found`);
           }
           return campaign;
+
       } catch (error) {
           this.logger.error(`Error finding campaign with id ${id}`, error.stack);
           throw error;
@@ -44,7 +45,7 @@ export class CampaignsService {
       campaign.name = name;
       campaign.description = description;
       return this.campaignRepository.save(campaign);
-  }
+    }
 
     
       async remove(id: number): Promise<void> {

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, UseGuards, Request  } from '@nestjs/common';
+import { Body, Controller, Post, Get, UseGuards, Request, Param  } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { PassThrough } from 'stream';
 import { JwtAuthGuard } from './jwt-auth.guard'; // Guard para proteger rotas privadas
@@ -33,5 +33,16 @@ export class AuthController {
         console.log('Usuário autenticado:', req.user);
         return req.user
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('users')
+    async getUsers(@Request() req: any) {
+        return this.authService.findOneById(5)
+    }
+
+    @Get('user-with-company/:id')
+    async getUserWithCompany(@Param('id') id: number) {
+        return this.authService.findOneById(id);
+}
 
 }

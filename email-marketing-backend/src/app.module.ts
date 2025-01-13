@@ -14,6 +14,9 @@ import { ConfigModule } from '@nestjs/config';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { Campaigns } from './campaigns/campaigns.entity';
+import { CompanyModule } from './company/company.module';
+import { Company } from './company/company.entity';
+import { ContactListModule } from './contact-list/contact-list.module';
 
 
 
@@ -32,7 +35,7 @@ import { Campaigns } from './campaigns/campaigns.entity';
       username: process.env.DB_USER || 'postgres',
       password: process.env.DB_PASS || '1234',
       database: process.env.DB_NAME || 'test',
-      entities: [User, Email, Campaigns],
+      entities: [User, Email, Campaigns, Company],
       synchronize: true,
     }),
     EmailModule,
@@ -53,12 +56,14 @@ import { Campaigns } from './campaigns/campaigns.entity';
       },
       template: {
         dir: join(__dirname, process.env.NODE_ENV === 'production' ? '../templates' : './src/templates'),
-        adapter: new HandlebarsAdapter(), // Instale o handlebars: npm install handlebars
+        adapter: new HandlebarsAdapter(),
         options: {
           strict: true,
         },
       },
     }),
+     CompanyModule,
+     ContactListModule,
   ],
   controllers: [AppController],
   providers: [AppService],

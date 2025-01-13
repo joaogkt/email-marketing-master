@@ -17,6 +17,7 @@ import { Campaigns } from './campaigns/campaigns.entity';
 import { CompanyModule } from './company/company.module';
 import { Company } from './company/company.entity';
 import { ContactListModule } from './contact-list/contact-list.module';
+import { ContactList } from './contact-list/entities/contact-list.entity';
 
 
 
@@ -35,7 +36,7 @@ import { ContactListModule } from './contact-list/contact-list.module';
       username: process.env.DB_USER || 'postgres',
       password: process.env.DB_PASS || '1234',
       database: process.env.DB_NAME || 'test',
-      entities: [User, Email, Campaigns, Company],
+      entities: [User, Email, Campaigns, Company, ContactList],
       synchronize: true,
     }),
     EmailModule,

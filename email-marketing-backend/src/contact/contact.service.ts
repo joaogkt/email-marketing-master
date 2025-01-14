@@ -44,15 +44,27 @@ export class ContactService {
     return contact;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} contact`;
+  async findOne(id: number): Promise<Contact> {
+    const contact = await this.contactRepository.findOne({ where: {id }, relations: ['contactLists']})
+    if (!contact) {
+      throw new Error('Contato não encontrado')
+    }
+    return contact;
   }
 
-  update(id: number, updateContactDto: UpdateContactDto) {
-    return `This action updates a #${id} contact`;
+  async update(id: number, updateContactDto: UpdateContactDto) {
+    const contact = await this.findOne(id)
+    const { name, email } = updateContactDto
+    contact.name = name
+    contact.email = email
+    return this.contactRepository.save(contact);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} contact`;
+  async remove(id: number): Promise<void> {
+    const contact = await this.findOne(id)
+    if (!contact) {
+      throw new NotFoundException(`Contato com o id: ${id} não encontrado`)
+    }
+    await this.contactRepository.remove(contact)
   }
 }

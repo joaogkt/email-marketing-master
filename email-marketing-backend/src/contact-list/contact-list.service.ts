@@ -46,7 +46,7 @@ export class ContactListService {
   async remove(id: number): Promise<void> {
     const contactList = await this.findOne(id)
     if (!contactList) {
-      throw new NotFoundException(`Campanha com id ${id} não encontrado`)
+      throw new NotFoundException(`Lista de contatos com id ${id} não encontrado`)
     }
     await this.contactListRepository.remove(contactList)
   }

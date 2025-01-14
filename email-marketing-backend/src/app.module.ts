@@ -10,7 +10,6 @@ import { Email } from './email/email.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
-
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { Campaigns } from './campaigns/campaigns.entity';
@@ -20,7 +19,6 @@ import { ContactListModule } from './contact-list/contact-list.module';
 import { ContactList } from './contact-list/entities/contact-list.entity';
 import { ContactModule } from './contact/contact.module';
 import { Contact } from './contact/entities/contact.entity';
-
 
 
 @Module({

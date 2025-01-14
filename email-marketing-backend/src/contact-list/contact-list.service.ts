@@ -22,7 +22,7 @@ export class ContactListService {
   }
 
   findAll() {
-    return this.contactListRepository.find({relations: ['company']});
+    return this.contactListRepository.find({relations: ['company', 'contacts']});
   }
 
   async findOne(id: number): Promise<ContactList> {

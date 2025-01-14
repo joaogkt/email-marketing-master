@@ -54,9 +54,15 @@ export class ContactService {
 
   async update(id: number, updateContactDto: UpdateContactDto) {
     const contact = await this.findOne(id)
-    const { name, email } = updateContactDto
+    const { name, email, contactListIds } = updateContactDto
+
+    const contactLists = await this.contactListRepository.find({
+      where: { id: In(contactListIds) },
+    });
+    
     contact.name = name
     contact.email = email
+    contact.contactLists = contactLists
     return this.contactRepository.save(contact);
   }
 

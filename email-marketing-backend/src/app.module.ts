@@ -23,7 +23,6 @@ import { Contact } from './contact/entities/contact.entity';
 
 @Module({
   imports: [
-
     ConfigModule.forRoot({
       envFilePath: '.env', 
       isGlobal: true,

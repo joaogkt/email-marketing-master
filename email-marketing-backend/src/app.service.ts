@@ -7,7 +7,7 @@ export class AppService {
   constructor(private configService: ConfigService) {}
 
   getHello(): string {
-    return 'Hello Ratin!';
+    return 'Hello World!';
   }
   
   getEmailHost(): string {

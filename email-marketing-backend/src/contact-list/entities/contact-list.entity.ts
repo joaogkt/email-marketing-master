@@ -16,8 +16,6 @@ export class ContactList {
     @CreateDateColumn()
     data_cadastro: Date;
 
-
-    //Mexer nessa relação
     @ManyToMany(() => Contact, (contact) => contact.contactLists)
     contacts: Contact[];
 }

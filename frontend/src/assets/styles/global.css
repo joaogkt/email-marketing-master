@@ -1,0 +1,17 @@
+/* Estilos globais compartilhados entre todas as páginas */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #ecf0f1;
+  }
+  
+  input, textarea, button {
+    font-family: 'Arial', sans-serif;
+  }
+  

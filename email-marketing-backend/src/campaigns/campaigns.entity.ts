@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn  } from "typeorm";
+import { ContactList } from "src/contact-list/entities/contact-list.entity";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToMany, JoinTable  } from "typeorm";
 
 @Entity('campaigns')
 export class Campaigns { 
@@ -15,6 +16,9 @@ export class Campaigns {
     @CreateDateColumn()
     createdAt: Date;
 
-    //Pendente -> relação entre colunas
+    //Pendente -> relação entre colunas contact-list
+    @ManyToMany(() => ContactList, (contactList) => contactList.campaigns)
+    @JoinTable() // Define que esta entidade será responsável pela tabela de junção
+    contactLists: ContactList[];
 
 }

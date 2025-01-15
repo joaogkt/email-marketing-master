@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, ManyToMany } from 'typeorm';
 import { Company } from 'src/company/company.entity';
 import { Contact } from 'src/contact/entities/contact.entity';
+import { Campaigns } from 'src/campaigns/campaigns.entity';
 
 @Entity('contact-lists')
 export class ContactList {
@@ -18,4 +19,7 @@ export class ContactList {
 
     @ManyToMany(() => Contact, (contact) => contact.contactLists)
     contacts: Contact[];
+
+    @ManyToMany(() => Campaigns, (campaign) => campaign.contactLists)
+    campaigns: Campaigns[];
 }

@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import '../assets/styles/email.css';
+import React, { useState } from 'react';
+import { Button, Form, Container } from 'react-bootstrap';
+import '../assets/styles/email.css'; 
 
 function EmailForm() {
   const [to, setTo] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSendEmail = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
 
@@ -36,47 +37,53 @@ function EmailForm() {
   };
 
   return (
-    <form onSubmit={handleSendEmail} className="email-form">
+    <Container className="my-5" style={{ maxWidth: '600px' }}>
       <div className="email-container">
-        <h1>Enviar Email</h1>
-        
-        <label>
-          Para:
-          <input
-            type="email"
-            value={to}
-            onChange={(e) => setTo(e.target.value)}
-            required
-            placeholder="Digite o e-mail do destinatário"
-          />
-        </label>
-        
-        <label>
-          Assunto:
-          <input
-            type="text"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            required
-            placeholder="Assunto do e-mail"
-          />
-        </label>
-        
-        <label>
-          Mensagem:
-          <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
-            placeholder="Digite a sua mensagem"
-          />
-        </label>
-        
-        <button type="submit" className="submit-button">
-          Enviar
-        </button>
+        <h1 className="text-center mb-4 text-white">Enviar Email</h1>
+        <Form onSubmit={handleSendEmail} className="email-form">
+          <Form.Group controlId="formEmail">
+            <Form.Label className="text-white">Para:</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Digite o email do destinatário"
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+              required
+              className="custom-input"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formSubject">
+            <Form.Label className="text-white">Assunto:</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Digite o assunto"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              required
+              className="custom-input"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formMessage">
+            <Form.Label className="text-white">Mensagem:</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={5}
+              placeholder="Digite sua mensagem"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+              className="custom-input"
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="submit" className="w-100 custom-button">
+            Enviar
+          </Button>
+        </Form>
       </div>
-    </form>
+    </Container>
   );
 }
 

@@ -36,7 +36,7 @@ export class CampaignsService {
 
     async findOne(id: number): Promise<Campaigns> {
       try {
-          const campaign = await this.campaignRepository.findOne({ where: { id } });
+          const campaign = await this.campaignRepository.findOne({ where: { id }, relations: ['contactLists', 'contactLists.contacts'] });
           if (!campaign) {
               throw new NotFoundException(`Campaign with id ${id} not found`);
           }
@@ -63,4 +63,5 @@ export class CampaignsService {
         }
         await this.campaignRepository.remove(campaign)
       }
+    
 }

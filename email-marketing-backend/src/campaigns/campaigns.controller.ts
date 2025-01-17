@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, Query } from '@nestjs/common';
 import { CampaignsService } from './campaigns.service';
-import { ApiTags, ApiOperation, ApiParam, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiParam, ApiBody, ApiQuery } from '@nestjs/swagger';
 
 @ApiTags('Campaigns') 
 @Controller('campaigns')
@@ -66,4 +66,7 @@ export class CampaignsController {
   remove(@Param('id') id: string) {
     return this.campaignsService.remove(+id);
   }
+
+  
+
 }

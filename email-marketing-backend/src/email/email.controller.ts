@@ -3,12 +3,15 @@ import { EmailService } from './email.service';
 import { CreateEmailDto } from './dto/create-email.dto'; 
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Email } from './email.entity';
+import { ApiTags, ApiOperation, ApiParam, ApiBody, ApiQuery } from '@nestjs/swagger';
+import { CampaignsService } from 'src/campaigns/campaigns.service';
+
 
 
 @UseGuards(JwtAuthGuard)
 @Controller('email')
 export class EmailController {
-    constructor(private emailService: EmailService) {}
+    constructor(private emailService: EmailService, private campaignService: CampaignsService) {}
 
     @UseGuards(JwtAuthGuard)
     @Post('send')
@@ -54,5 +57,48 @@ export class EmailController {
         console.log(`Erro ao enviar email ${error}`)
         throw new Error(`Falha ao enviar email`)
       }
+    }
+
+    @Post('/:campaignId')
+    @ApiOperation({ summary: 'Send emails to all contacts in the campaign' })
+    @ApiParam({
+      name: 'campaignId',
+      description: 'The ID of the campaign',
+      type: Number,
+    })
+    @ApiBody({
+      description: 'Subject and message to send',
+      schema: {
+        type: 'object',
+        properties: {
+          subject: { type: 'string', example: 'Campaign Subject' },
+          message: { type: 'string', example: 'Message body for the campaign' },
+        },
+      },
+    })
+    async sendCampaignEmails(
+      @Param('campaignId') campaignId: number,
+      @Body('subject') subject: string,
+      @Body('message') message: string,
+    ): Promise<any> {
+      const campaign = await this.campaignService.findOne(
+        campaignId,
+      );
+  
+      if (!campaign) {
+        return { error: 'Campaign not found' };
+      }
+  
+      const emails = campaign.contactLists.flatMap((list) =>
+        list.contacts.map((contact) => contact.email),
+      );
+  
+      if (emails.length === 0) {
+        return { error: 'No contacts found in the campaign' };
+      }
+  
+      await this.emailService.sendBulkEmails(emails, subject, message);
+  
+      return { message: 'Emails sent successfully', emails };
     }
   }

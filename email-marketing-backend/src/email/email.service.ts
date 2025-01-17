@@ -90,4 +90,22 @@ export class EmailService {
         return `Falha ao enviar o email para ${to}.`;
       }
     }
+
+    async sendBulkEmails(
+      to: string[],
+      subject: string,
+      message: string,
+    ): Promise<void> {
+      for (const email of to) {
+        this.logger.log(`Tentando enviar e-mail para ${email}...`);
+        try {
+          const result = await this.trySendEmail(email, subject, message);
+          this.logger.log(`Email enviado para ${email}`);
+          console.log(`Sending email to: ${email}, Subject: ${subject}`);
+          
+         } catch (error) {
+        console.error(`Erro ao enviar email para: ${email}, Erro: ${error.message}`);
+      }
+    }
+  }
 }

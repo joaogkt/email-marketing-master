@@ -9,11 +9,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { MailerModule } from '@nestjs-modules/mailer';
 import Configs from '../config/configs';
+import { Campaigns } from 'src/campaigns/campaigns.entity';
+import { CampaignsService } from 'src/campaigns/campaigns.service';
+import { ContactList } from 'src/contact-list/entities/contact-list.entity';
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Email]), 
+    TypeOrmModule.forFeature([Email, Campaigns, ContactList]), 
     AuthModule, JwtModule,
     PassportModule,
     JwtModule.register({
@@ -35,7 +38,7 @@ import Configs from '../config/configs';
       }
   })
   ],
-  providers: [EmailService],
+  providers: [EmailService, CampaignsService],
   controllers: [EmailController],
   exports: [EmailService]
   })

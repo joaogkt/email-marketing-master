@@ -36,3 +36,17 @@ O projeto está **em desenvolvimento**, com foco inicial na criação das funcio
 - Estruturação do sistema de envio de e-mails.  
 - Desenvolvimento do gerenciamento de contatos.  
 - Implementação do painel administrativo para criação de campanhas.  
+
+---
+
+## 💻 Stacks Utilizadas
+
+### **Backend**  
+- [TypeScript](https://www.typescriptlang.org/)  
+- [NestJS](https://nestjs.com/)  
+
+### **Frontend**  
+- [ReactJS](https://reactjs.org/)  
+
+### **Documentação da API**  
+- [Swagger](https://swagger.io/)  

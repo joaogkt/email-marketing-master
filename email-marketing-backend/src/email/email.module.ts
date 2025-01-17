@@ -42,4 +42,5 @@ import { ContactList } from 'src/contact-list/entities/contact-list.entity';
   controllers: [EmailController],
   exports: [EmailService]
   })
+  
 export class EmailModule {}

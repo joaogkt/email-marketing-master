@@ -8,11 +8,12 @@ import { AuthModule } from '../auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from 'src/users/users.module';
+import { Campaigns } from 'src/campaigns/campaigns.entity';
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ContactList, Company]),
+    TypeOrmModule.forFeature([ContactList, Company, Campaigns]),
         AuthModule, JwtModule,
         PassportModule, UsersModule,
         JwtModule.register({

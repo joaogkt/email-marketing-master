@@ -43,4 +43,16 @@ export class EmailController {
         throw new NotFoundException(`Email com id ${id} não encontrado`)
       }
     }
+
+    @Post('send-everyone')
+    async sendEmailEveryone(@Body() createEmailDto: CreateEmailDto): Promise<string> {
+      try { 
+        const { to, subject, message} = createEmailDto;
+        return this.emailService.trySendEmail(to, subject, message);
+
+      } catch (error) {
+        console.log(`Erro ao enviar email ${error}`)
+        throw new Error(`Falha ao enviar email`)
+      }
+    }
   }

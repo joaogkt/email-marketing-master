@@ -17,7 +17,7 @@ export class Campaigns {
     createdAt: Date;
 
     //Pendente -> relação entre colunas contact-list
-    @ManyToMany(() => ContactList, (contactList) => contactList.campaigns)
+    @ManyToMany(() => ContactList, (contactList) => contactList.campaigns, { cascade: true } )
     @JoinTable() // Define que esta entidade será responsável pela tabela de junção
     contactLists: ContactList[];
 

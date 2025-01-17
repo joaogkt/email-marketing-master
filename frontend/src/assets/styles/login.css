@@ -1,29 +1,24 @@
-/* Estilos específicos para a página de login */
-.login-container {
-    background-color: #34495e;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
-    margin: 20px auto;
-  }
-  
-  .login-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .login-form input {
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    border: 1px solid #7f8c8d;
-  }
-  
-  .submit-button {
-    background-color: #1abc9c;
-    color: white;
-  }
-  
+.logon-container{
+  width: 100%;
+  max-width: 1120px;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logon-container section.form {
+  width: 100%;
+  max-width: 350px;
+  margin-right: 30px;
+}
+
+.logon-container section.form form {
+  margin-top: 100px;
+}
+
+.logon-container section.form h1 {
+  font-size: 32px;
+  margin-bottom: 32px;
+}

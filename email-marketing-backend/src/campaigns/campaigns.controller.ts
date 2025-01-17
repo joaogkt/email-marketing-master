@@ -16,14 +16,16 @@ export class CampaignsController {
       properties: {
         name: { type: 'string', description: 'Campaign name' },
         description: { type: 'string', description: 'Campaign description' },
+        contactLists: {type: 'string', description: 'Contact list id - [4] or [1,2,3,4]'}
       },
       required: ['name', 'description'],
     },
   })
-  create(@Body() createCampaignDto: { name: string; description: string }) {
+  create(@Body() createCampaignDto: { name: string; description: string; contactLists: number[] }) {
     return this.campaignsService.createCampaign(
       createCampaignDto.name,
       createCampaignDto.description,
+      createCampaignDto.contactLists,
     );
   }
 

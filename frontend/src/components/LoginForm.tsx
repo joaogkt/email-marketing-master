@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/login.css'
+import {FiLogIn} from 'react-icons/fi'
+import {Link } from 'react-router-dom'
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -40,36 +42,42 @@ function LoginForm() {
   };
 
   return (
-<div className="login-container">
-  <form onSubmit={handleLogin} className="login-form">
-    <h1>Login</h1>
+  <div className="logon-container">
+    <section className="form">
+      <img src={'/'} alt="The Email Image"/>
+      <form onSubmit={ handleLogin }>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-    {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <h1>Faça seu logon</h1>
+          <input
+        id="email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Digite seu email"
+        required
+      />
 
-    <label htmlFor="email">Email:</label>
-    <input
-      id="email"
-      type="email"
-      value={email}
-      onChange={(e) => setEmail(e.target.value)}
-      placeholder="Digite seu email"
-      required
-    />
+      <input
+        id="password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Digite sua senha"
+        required
+      />
+      <button type="submit" disabled={loading} className="submit-button">
+        {loading ? 'Entrando...' : 'Entrar'}
+      </button>
 
-    <label htmlFor="password">Senha:</label>
-    <input
-      id="password"
-      type="password"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      placeholder="Digite sua senha"
-      required
-    />
+          <Link className="back-link" to="/register">
+              <FiLogIn size={16} color="#e02041" />
+              Não tenho cadastro
+          </Link>
+      </form>
 
-    <button type="submit" disabled={loading} className="submit-button">
-      {loading ? 'Entrando...' : 'Entrar'}
-    </button>
-  </form>
+</section>
+<img src={ '/' } alt="Email Marketing" />
 </div>
   );
 }

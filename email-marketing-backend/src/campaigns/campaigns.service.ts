@@ -1,7 +1,8 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Campaigns } from './campaigns.entity';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ContactList } from 'src/contact-list/entities/contact-list.entity';
 
 
 
@@ -14,16 +15,23 @@ export class CampaignsService {
     constructor(
     @InjectRepository(Campaigns)
     private campaignRepository: Repository<Campaigns>,
+
+    @InjectRepository(ContactList)
+    private contactListRepository: Repository<ContactList>
     ) {}
 
-    async createCampaign(name: string, description: string): Promise<Campaigns> {
+    async createCampaign(name: string, description: string, contactListIds: number[]): Promise<Campaigns> {
         this.logger.log(`Creating campaign with name: ${name}`);
-        const campaign = this.campaignRepository.create({ name, description });
+        const contactLists = await this.contactListRepository.find({
+          where: { id: In(contactListIds) },
+      });        
+        const campaign = this.campaignRepository.create({ name, description, contactLists });
         return this.campaignRepository.save(campaign)
     }
 
     async findAll(): Promise<Campaigns[]> {
-        return this.campaignRepository.find();
+        return this.campaignRepository.find( { relations: ['contactLists']} );
+        
     }
 
     async findOne(id: number): Promise<Campaigns> {

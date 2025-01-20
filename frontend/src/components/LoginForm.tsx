@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/styles/login.css'
-import {FiLogIn} from 'react-icons/fi'
-import {Link } from 'react-router-dom'
+import { FiLogIn } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import '../assets/styles/login.css';
 
-function LoginForm() {
+const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -12,8 +12,8 @@ function LoginForm() {
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault(); 
-    setErrorMessage(''); 
+    e.preventDefault();
+    setErrorMessage('');
     setLoading(true);
 
     try {
@@ -25,61 +25,60 @@ function LoginForm() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data)
-        console.log(data.accessToken)
         localStorage.setItem('token', data.accessToken);
-        navigate('/send-email'); 
-    } else {
+        navigate('/send-email');
+      } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.message || 'Login falhou! Verifique suas credenciais.');
+        setErrorMessage(errorData.message || 'Credenciais inválidas. Tente novamente.');
       }
     } catch (error) {
-      setErrorMessage('Erro ao conectar com o servidor. Tente novamente mais tarde.');
-      console.error('Erro ao fazer login:', error);
+      setErrorMessage('Erro ao conectar ao servidor. Tente novamente mais tarde.');
+      console.error('Erro:', error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-  <div className="logon-container">
-    <section className="form">
-      <img src={'/'} alt="The Email Image"/>
-      <form onSubmit={ handleLogin }>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-          <h1>Faça seu logon</h1>
-          <input
-        id="email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Digite seu email"
-        required
-      />
-
-      <input
-        id="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Digite sua senha"
-        required
-      />
-      <button type="submit" disabled={loading} className="submit-button">
-        {loading ? 'Entrando...' : 'Entrar'}
-      </button>
-
-          <Link className="back-link" to="/register">
-              <FiLogIn size={16} color="#e02041" />
-              Não tenho cadastro
+    <div className="login-container">
+      <div className="login-form-wrapper">
+        <section className="form-section">
+          <h1>Login</h1>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <form onSubmit={handleLogin} className="login-form">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="input-field"
+            />
+            <input
+              type="password"
+              placeholder="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="input-field"
+            />
+            <button type="submit" disabled={loading} className="submit-button">
+              {loading ? 'Entrando...' : 'Entrar'}
+            </button>
+          </form>
+          <Link to="/register" className="register-link">
+            <FiLogIn size={16} />
+            Não tem uma conta? Registre-se
           </Link>
-      </form>
-
-</section>
-<img src={ '/' } alt="Email Marketing" />
-</div>
+        </section>
+        <img
+          src="/assets/celular.jpg"
+          alt="Login Visual"
+          className="login-image"
+        />
+      </div>
+    </div>
   );
-}
+};
 
 export default LoginForm;

@@ -7,7 +7,7 @@ function EmailForm() {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSendEmail = async (e) => {
+  const handleSendEmail = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
 
@@ -84,6 +84,7 @@ function EmailForm() {
         </Form>
       </div>
     </Container>
+
   );
 }
 

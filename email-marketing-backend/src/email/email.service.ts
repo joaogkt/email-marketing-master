@@ -5,6 +5,7 @@ import { Email } from 'src/email/email.entity';
 import { MailerService } from '@nestjs-modules/mailer';
 import Configs from '../config/configs';
 import * as nodemailer from "nodemailer";
+import { resourceLimits } from 'worker_threads';
 
 
 
@@ -12,7 +13,6 @@ import * as nodemailer from "nodemailer";
 export class EmailService {
 
   private readonly logger = new Logger(EmailService.name);
-
 
     constructor(
     @InjectRepository(Email)
@@ -91,18 +91,14 @@ export class EmailService {
       }
     }
 
-    async sendBulkEmails(
-      to: string[],
-      subject: string,
-      message: string,
-    ): Promise<void> {
+    async sendBulkEmails( to: string[], subject: string, message: string ): Promise<void> {
       for (const email of to) {
         this.logger.log(`Tentando enviar e-mail para ${email}...`);
         try {
           const result = await this.trySendEmail(email, subject, message);
           this.logger.log(`Email enviado para ${email}`);
           console.log(`Sending email to: ${email}, Subject: ${subject}`);
-          
+          this.logger.log(`${result}`);
          } catch (error) {
         console.error(`Erro ao enviar email para: ${email}, Erro: ${error.message}`);
       }

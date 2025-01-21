@@ -26,7 +26,7 @@ const LoginForm: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', data.accessToken);
-        navigate('/send-email');
+        navigate('/home');
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.message || 'Credenciais inválidas. Tente novamente.');

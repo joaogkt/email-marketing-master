@@ -25,18 +25,18 @@ const AppNavbar = () => {
   return (
     <CNavbar expand="lg" className="bg-body-tertiary">
       <CContainer fluid>
-        <CNavbarBrand href="#">
+        <CNavbarBrand href="/home">
           <img
-            src="/assets/image.png"
-            alt="CoreUI Signet"
-            width="22"
-            height="24"
+            src="/assets/mail.png"
+            alt="Logo email"
+            width="36"
+            height="36"
           /></CNavbarBrand>
         <CNavbarToggler onClick={() => setVisible(!visible)} />
         <CCollapse className="navbar-collapse" visible={visible}>
           <CNavbarNav className="me-auto">
             <CNavItem>
-              <CNavLink href="/" active>
+              <CNavLink href="/home" active>
                 Home
               </CNavLink>
             </CNavItem>
@@ -64,9 +64,9 @@ const AppNavbar = () => {
             </CNavItem>
           </CNavbarNav>
           <CForm className="d-flex">
-            <CFormInput type="search" className="me-2" placeholder="Search" />
+            <CFormInput type="search" className="me-2" placeholder="Pesquisar" />
             <CButton type="submit" color="success" variant="outline">
-              Search
+              Pesquisar
             </CButton>
           </CForm>
         </CCollapse>

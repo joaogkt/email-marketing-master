@@ -1,4 +1,4 @@
-/* Global Styles
+/* Global Styles */
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -20,8 +20,6 @@ body {
     gap: 20px;
     padding: 40px 20px;
   }
-
-  
   
   /* Module Style */
   .module {
@@ -40,27 +38,6 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
   
-  /* Icon Style */
-  .module-icon {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 15px;
-  }
-  
-  /* Title Style */
-  .module h2 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    color: #343a40;
-  }
-  
-  /* Description Style */
-  .module p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 20px;
-  }
-  
   /* Button Style */
   .module-button {
     background-color: #007bff;
@@ -77,10 +54,31 @@ body {
     background-color: #0056b3;
   }
   
-  /* Responsiveness */
+  /* Input Style */
+  .create-list input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  /* List Style */
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  ul li {
+    margin: 10px 0;
+    font-size: 1rem;
+  }
+  
   @media (max-width: 768px) {
     .module {
       width: 100%;
       margin: 0 10px;
     }
   }
+  

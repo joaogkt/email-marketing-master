@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import AppNavbar from '../components/AppNavbar';
 import '../assets/styles/global.css';
 import ListContactsForm from '../components/ListContactsForm';
+import ListCampaigns from '../components/ListCampaigns';
 
 
-function ListContactsPage() {
+function ListCampaignsPage() {
   const navigate = useNavigate(); 
 
   const handleRedirect = (path: string) => {
@@ -15,10 +16,10 @@ function ListContactsPage() {
   return (
     <>
     <AppNavbar />
-    <ListContactsForm />
+    <ListCampaigns />
     </>
 
   );
 }
 
-export default ListContactsPage;
+export default ListCampaignsPage;

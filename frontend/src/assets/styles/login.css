@@ -59,8 +59,9 @@ h1 {
 .submit-button {
   width: 100%;
   padding: 0.75rem;
-  background: #e02041;
+  /* background: #e02041; */
   /* background: #198754; */
+  background: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -70,7 +71,9 @@ h1 {
 }
 
 .submit-button:hover {
-  background: #c01838;
+  /* background: #c01838; */
+  background: #003d7e;
+
 }
 
 .submit-button:disabled {

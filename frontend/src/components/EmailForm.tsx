@@ -7,7 +7,7 @@ function EmailForm() {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSendEmail = async (e: React.ChangeEvent<any>) => {
+  const handleSendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
 
@@ -28,6 +28,9 @@ function EmailForm() {
 
       if (response.ok) {
         alert('Email enviado com sucesso!');
+        setTo('');
+        setSubject('');
+        setMessage('');
       } else {
         alert('Falha ao enviar o email.');
       }
@@ -37,54 +40,52 @@ function EmailForm() {
   };
 
   return (
-    <Container className="my-5" style={{ maxWidth: '600px' }}>
-      <div className="email-container">
-        <h1 className="text-center mb-4 text-white">Enviar Email</h1>
-        <Form onSubmit={handleSendEmail} className="email-form">
-          <Form.Group controlId="formEmail">
-            <Form.Label className="text-white">Para:</Form.Label>
+    <>
+    <Container className="d-flex justify-content-center align-items-start" style={{ minHeight: '100vh' }}>
+      <div className="email-card p-4 rounded shadow">
+        <h2 className="text-center mb-4">Enviar Email</h2>
+        <Form onSubmit={handleSendEmail}>
+          <Form.Group controlId="formEmail" className="mb-3">
+            <Form.Label>Para:</Form.Label>
             <Form.Control
               type="email"
               placeholder="Digite o email do destinatário"
               value={to}
               onChange={(e) => setTo(e.target.value)}
               required
-              className="custom-input"
             />
           </Form.Group>
 
-          <Form.Group controlId="formSubject">
-            <Form.Label className="text-white">Assunto:</Form.Label>
+          <Form.Group controlId="formSubject" className="mb-3">
+            <Form.Label>Assunto:</Form.Label>
             <Form.Control
               type="text"
               placeholder="Digite o assunto"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               required
-              className="custom-input"
             />
           </Form.Group>
 
-          <Form.Group controlId="formMessage">
-            <Form.Label className="text-white">Mensagem:</Form.Label>
+          <Form.Group controlId="formMessage" className="mb-3">
+            <Form.Label>Mensagem:</Form.Label>
             <Form.Control
               as="textarea"
-              rows={5}
+              rows={4}
               placeholder="Digite sua mensagem"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
-              className="custom-input"
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit" className="w-100 custom-button">
+          <Button variant="primary" type="submit" className="w-100">
             Enviar
           </Button>
         </Form>
       </div>
     </Container>
-
+    </>
   );
 }
 

@@ -1,0 +1,98 @@
+import React, { useState, useEffect } from 'react';
+import { Container, Card, Button, ListGroup, Badge } from 'react-bootstrap';
+
+interface ContactList {
+  id: number;
+  nome: string;
+  data_cadastro: string;
+}
+
+interface Campaign {
+  id: number;
+  name: string;
+  description: string;
+  createdAt: string;
+  contactLists: ContactList[];
+}
+
+function ListCampaigns() {
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/campaigns');
+        const data = await response.json();
+        setCampaigns(data);
+      } catch (error) {
+        console.error('Erro ao buscar campanhas:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCampaigns();
+  }, []);
+
+  if (loading) {
+    return <div className="text-center my-5">Carregando campanhas...</div>;
+  }
+
+  return (
+    <Container className="py-4">
+      <h2 className="text-center mb-4">Lista de Campanhas</h2>
+      {campaigns.length === 0 ? (
+        <p className="text-center">Nenhuma campanha cadastrada.</p>
+      ) : (
+        campaigns.map((campaign) => (
+          <Card key={campaign.id} className="mb-3">
+            <Card.Body>
+              <Card.Title>
+                <span>{campaign.name}</span>
+                <Badge bg="secondary" className="ms-2">
+                  ID: {campaign.id}
+                </Badge>
+              </Card.Title>
+              <Card.Text>
+                <strong>Descrição:</strong> {campaign.description}
+              </Card.Text>
+              <Card.Text>
+                <strong>Criada em:</strong>{' '}
+                {new Date(campaign.createdAt).toLocaleDateString()}
+              </Card.Text>
+              <Card.Subtitle className="mb-2 text-muted">Listas de Contato</Card.Subtitle>
+              {campaign.contactLists.length > 0 ? (
+                <ListGroup className="mb-3">
+                  {campaign.contactLists.map((list) => (
+                    <ListGroup.Item key={list.id}>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span>{list.nome}</span>
+                        <small>
+                          <em>
+                            Cadastrada em:{' '}
+                            {new Date(list.data_cadastro).toLocaleDateString()}
+                          </em>
+                        </small>
+                      </div>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              ) : (
+                <p>Não há listas de contato associadas.</p>
+              )}
+              <div className="d-flex justify-content-end">
+                <Button variant="primary" className="me-2">
+                  Editar
+                </Button>
+                <Button variant="danger">Excluir</Button>
+              </div>
+            </Card.Body>
+          </Card>
+        ))
+      )}
+    </Container>
+  );
+}
+
+export default ListCampaigns;

@@ -3,6 +3,7 @@ import '../assets/styles/global.css';
 import emailIcon from '/assets/marketing-de-email.png';
 import contactsIcon from '/assets/contato.png';
 import campaignsIcon from '/assets/campanha.png';
+import relatorioIcon from '/assets/relatorio.png'
 import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
@@ -19,13 +20,16 @@ function HomePage() {
       <div className="home-page">
         <AppNavbar />
       </div>
+      <div className='titulo'>
+          <h1>Email Marketing</h1>
+      </div>
       <div className="modules-container">
 
         <div className="module">
           <img src={emailIcon} alt="Email Icon" className="module-icon" />
           <h2>Email</h2>
           <p>Gerencie e envie emails personalizados para seus clientes.</p>
-          <button className="module-button"  onClick={() => handleRedirect('/send-email')}>Acessar</button>
+          <button className="module-button"  onClick={() => handleRedirect('/email')}>Acessar</button>
         </div>
 
         <div className="module">
@@ -39,6 +43,13 @@ function HomePage() {
           <img src={contactsIcon} alt="Contacts Icon" className="module-icon" />
           <h2>Lista de Contatos</h2>
           <p>Organize sua base de contatos e mantenha tudo em um só lugar.</p>
+          <button className="module-button"  onClick={() => handleRedirect('/lista-contatos')}>Acessar</button>
+        </div>
+
+        <div className="module">
+          <img src={relatorioIcon} alt="Relatorio Icon" className="module-icon" />
+          <h2>Relatorios</h2>
+          <p>Visualize os relatorios dos envios e falhas de email.</p>
           <button className="module-button"  onClick={() => handleRedirect('/lista-contatos')}>Acessar</button>
         </div>
         

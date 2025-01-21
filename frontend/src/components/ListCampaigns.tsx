@@ -36,6 +36,29 @@ function ListCampaigns() {
     fetchCampaigns();
   }, []);
 
+
+  const handleDeleteCampaign = async (campaignId: number) => {
+    if (window.confirm('Você tem certeza que deseja excluir esta campanha?')) {
+      try {
+        const response = await fetch(`http://localhost:3000/campaigns/${campaignId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          // Atualiza a lista de campanhas removendo a campanha excluída
+          setCampaigns(campaigns.filter((campaign) => campaign.id !== campaignId));
+          alert('Campanha excluída com sucesso!');
+        } else {
+          alert('Erro ao excluir a campanha.');
+        }
+      } catch (error) {
+        console.error('Erro ao excluir a campanha:', error);
+        alert('Erro ao excluir a campanha.');
+      }
+    }
+  };
+    
+
   if (loading) {
     return <div className="text-center my-5">Carregando campanhas...</div>;
   }
@@ -90,8 +113,10 @@ function ListCampaigns() {
                     <Button variant="primary" className="me-2">
                       Editar
                     </Button>
-                    <Button variant="danger">Excluir</Button>
-                  </div>
+                    <Button variant="danger" onClick={() => handleDeleteCampaign(campaign.id)}>
+                        Excluir 
+                    </Button>
+                    </div>
                 </Card.Body>
               </Card>
             </Col>

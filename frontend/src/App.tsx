@@ -27,9 +27,7 @@ function App() {
         } />
 
         <Route path="/login" element={<LoginPage />} />
-        
         <Route path='/register' element={<RegisterPage />} />
-        {/* <Route path="/email" element={<EmailPage />} /> */}
 
         <Route path="/email" element={
           <ProtectedRoute isAuthenticated={isAuthenticated}>
@@ -41,8 +39,6 @@ function App() {
         <Route path="/campanhas" element={<CampaignsPage />} />
         <Route path='/campanhas/list' element={<ListCampaignsPage />} />
         <Route path="/campanhas/create" element={<CreateCampaignsPage />} />
-
-
 
       </Routes>
     </Router>

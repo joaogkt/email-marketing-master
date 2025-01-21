@@ -1,10 +1,7 @@
-import EmailForm from '../components/EmailForm';
-
 import AppNavbar from '../components/AppNavbar';
 import '../assets/styles/global.css';
 import emailIcon from '/assets/marketing-de-email.png';
 import digitalMarketing from '/assets/digital-marketing.png';
-import campaignsIcon from '/assets/campanha.png';
 import relatorioIcon from '/assets/relatorio.png'
 import { useNavigate } from 'react-router-dom';
 

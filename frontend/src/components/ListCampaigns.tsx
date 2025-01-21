@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Card, Button, ListGroup, Badge } from 'react-bootstrap';
+import { Container, Card, Button, ListGroup, Badge, Row, Col } from 'react-bootstrap';
+import '../assets/styles/listCampaigns.css'; // Arquivo CSS separado
 
 interface ContactList {
   id: number;
@@ -45,51 +46,57 @@ function ListCampaigns() {
       {campaigns.length === 0 ? (
         <p className="text-center">Nenhuma campanha cadastrada.</p>
       ) : (
-        campaigns.map((campaign) => (
-          <Card key={campaign.id} className="mb-3">
-            <Card.Body>
-              <Card.Title>
-                <span>{campaign.name}</span>
-                <Badge bg="secondary" className="ms-2">
-                  ID: {campaign.id}
-                </Badge>
-              </Card.Title>
-              <Card.Text>
-                <strong>Descrição:</strong> {campaign.description}
-              </Card.Text>
-              <Card.Text>
-                <strong>Criada em:</strong>{' '}
-                {new Date(campaign.createdAt).toLocaleDateString()}
-              </Card.Text>
-              <Card.Subtitle className="mb-2 text-muted">Listas de Contato</Card.Subtitle>
-              {campaign.contactLists.length > 0 ? (
-                <ListGroup className="mb-3">
-                  {campaign.contactLists.map((list) => (
-                    <ListGroup.Item key={list.id}>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <span>{list.nome}</span>
-                        <small>
-                          <em>
-                            Cadastrada em:{' '}
-                            {new Date(list.data_cadastro).toLocaleDateString()}
-                          </em>
-                        </small>
-                      </div>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              ) : (
-                <p>Não há listas de contato associadas.</p>
-              )}
-              <div className="d-flex justify-content-end">
-                <Button variant="primary" className="me-2">
-                  Editar
-                </Button>
-                <Button variant="danger">Excluir</Button>
-              </div>
-            </Card.Body>
-          </Card>
-        ))
+        <Row xs={1} sm={2} md={3} className="g-4">
+          {campaigns.map((campaign) => (
+            <Col key={campaign.id}>
+              <Card className="h-100 card-hover">
+                <Card.Body className="d-flex flex-column justify-content-between">
+                  <div>
+                    <Card.Title className="d-flex justify-content-between align-items-center">
+                      <span>{campaign.name}</span>
+                      <Badge bg="secondary">ID: {campaign.id}</Badge>
+                    </Card.Title>
+                    <Card.Text>
+                      <strong>Descrição:</strong> {campaign.description}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Criada em:</strong>{' '}
+                      {new Date(campaign.createdAt).toLocaleDateString()}
+                    </Card.Text>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      Listas de Contato
+                    </Card.Subtitle>
+                    {campaign.contactLists.length > 0 ? (
+                      <ListGroup className="mb-3">
+                        {campaign.contactLists.map((list) => (
+                          <ListGroup.Item key={list.id}>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <span>{list.nome}</span>
+                              <small>
+                                <em>
+                                  Cadastrada em:{' '}
+                                  {new Date(list.data_cadastro).toLocaleDateString()}
+                                </em>
+                              </small>
+                            </div>
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                    ) : (
+                      <p>Não há listas de contato associadas.</p>
+                    )}
+                  </div>
+                  <div className="d-flex justify-content-end">
+                    <Button variant="primary" className="me-2">
+                      Editar
+                    </Button>
+                    <Button variant="danger">Excluir</Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
       )}
     </Container>
   );
